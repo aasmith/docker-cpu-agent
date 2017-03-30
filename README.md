@@ -1,4 +1,4 @@
-# cpu-agent
+# aasmith/cpu-agent
 
 A tiny docker image for advertising the amount of CPU idle cycles that are
 available.
