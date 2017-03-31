@@ -6,4 +6,6 @@ RUN apk add --update sysstat nmap-ncat && rm -rf /var/cache/apk/*
 
 ADD cpu-agent.awk server.sh /
 
+EXPOSE 40000
+
 CMD ["/server.sh"]
