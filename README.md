@@ -27,7 +27,7 @@ The image will need access to the host's pid list, so run the container as
 such:
 
 ```
-$ docker run -p 40000 --pid=host aasmith/cpu-agent
+$ docker run -p 40000:40000 --pid=host aasmith/cpu-agent
 ```
 
 This will expose the internal port as ephemeral port, suitable for
@@ -36,7 +36,7 @@ advertising through service discovery.
 To test output, try the following (your variety of netcat may vary):
 
 ```
-$ ncat --recv-only 127.0.0.1 32772
+$ ncat --recv-only 127.0.0.1 40000
 99%
 ```
 
