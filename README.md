@@ -49,7 +49,7 @@ weighted-round-robin load balancing.
 ## Real-World Usage
 
 Google advocates for Weighted Round Robin with per-node CPU polling
-in "(Site Reliability Engineering)[https://landing.google.com/sre/book]":
+in [Site Reliability Engineering](https://landing.google.com/sre/book):
 
 > Weighted Round Robin is an important load balancing policy that improves on Simple and Least-Loaded Round Robin by incorporating backend-provided information into the decision process.
 >
