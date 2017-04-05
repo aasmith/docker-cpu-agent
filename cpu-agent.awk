@@ -1,4 +1,4 @@
-#!/usr/bin/awk
+#!/usr/bin/awk -f
 
 # Takes a floating-point CPU value, extracts the number as an
 # integer, and appends a percent character. See comments below
