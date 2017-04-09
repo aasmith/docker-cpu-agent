@@ -30,9 +30,6 @@ such:
 $ docker run -p 40000:40000 --pid=host aasmith/cpu-agent
 ```
 
-This will expose the internal port as ephemeral port, suitable for
-advertising through service discovery.
-
 To test output, try the following (your variety of netcat may vary):
 
 ```
