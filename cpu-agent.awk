@@ -5,6 +5,12 @@
 # for more details. For example, 23.67 becomes 24%.
 
 BEGIN {
+  # Maximum cpu idle increase allowed per interval.
+  maxrise = 3
+
+  # Amount of time to keep a previous cpu idle value in seconds.
+  interval = 5
+
   statefile = "/var/run/cpu-agent.prev"
 
   # Read the previous CPU idle value. If the statefile does
@@ -28,11 +34,30 @@ END {
   # evasive action at zero, potentially causing more distress.
   if (cpu <= 1) cpu = 1
 
+  # If the cpu idle value is higher than previous, and the
+  # statefile is less than five seconds old, then return the old
+  # number instead. This prevents the number from climbing too
+  # rapidly, but still allows it to drop instantly.
+
+  if (getline < statefile > 0) {
+    # Fetch the state file's mtime and the current time.
+    "date -r " statefile " +%s" | getline prevtime
+    now = systime()
+
+    close(statefile)
+
+    # If the state file is newer than 5 seconds, print and exit.
+    if (prevtime > now - interval && cpu > prev) {
+      printf("%.0f%% #C\r\n", prev)
+      exit
+    }
+  }
+
   # Take the current and previous CPU idle value, and cap the
   # new value to a max of prev + 3. This prevents a node from
   # immediately jumping to full-idle, and possibly taking on
   # too much load, sending the node idle back to near-zero.
-  cpu = (cpu - 3 > prev) ? prev + 3 : cpu
+  cpu = (cpu - maxrise > prev) ? prev + maxrise : cpu
 
   # Save the new cpu value to the state file.
   print cpu > statefile
