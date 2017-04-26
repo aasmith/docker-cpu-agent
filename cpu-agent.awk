@@ -6,10 +6,10 @@
 
 BEGIN {
   # Maximum cpu idle increase allowed per interval.
-  maxrise = 3
+  maxrise = "MAXRISE" in ENVIRON ? ENVIRON["MAXRISE"] : 3
 
   # Amount of time to keep a previous cpu idle value in seconds.
-  interval = 5
+  interval = "INTERVAL" in ENVIRON ? ENVIRON["INTERVAL"] : 5
 
   statefile = "/var/run/cpu-agent.prev"
 
